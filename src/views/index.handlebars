@@ -1,0 +1,8 @@
+{{#if isAuthenticated}}
+    You are authenticated!<br>
+    Go to your <a href="/profile">Profile</a>.
+{{else}}
+    <h3>You are unauthenticated.</h3>
+    Please login below.
+    {{> login}}
+{{/if}}

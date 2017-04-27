@@ -1,0 +1,16 @@
+<p>Welcome {{display_name}} ({{username}})!</p>
+
+<p>
+    Your ID is: {{id}}
+    <br><br>
+    Your emails ({{emails.length}}):
+    <ul>
+        {{#each emails}}
+            <li>{{this.value}}</li>
+        {{/each}}
+    </ul>
+
+    You registered at: {{timeFormat this.created_at}}
+    <br><br>
+    Last login at: {{timeFormat this.updated_at}}
+</p>
