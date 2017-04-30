@@ -7,7 +7,6 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
-import moment from 'moment';
 import handlebars from 'express-handlebars';
 
 import config from '../config';
@@ -28,11 +27,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.engine('handlebars', handlebars({
-  defaultLayout: 'base',
   layoutsDir: path.join(__dirname, '/views/layouts'),
   partialsDir: path.join(__dirname, '/views/partials'),
   helpers: {
-    timeFormat: timestamp => moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')
+    dateFormat: timestamp => `<span class='dateFormat'>${timestamp}</span>`
   }
 }));
 

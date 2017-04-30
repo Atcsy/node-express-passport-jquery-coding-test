@@ -6,18 +6,45 @@ class Routes {
       if (req.query.code) {
         return this._authenticateCallback(req, res, next);
       }
-      return res.render('index', {isAuthenticated: req.isAuthenticated()});
+      return res.render('index', {
+        isAuthenticated: req.isAuthenticated(),
+        renderedAt: new Date().toISOString()
+      });
     });
 
-    app.get('/profile', this._ensureAuthenticated(), (req, res) => {
-      return res.render('profile', JSON.parse(req.user));
+    app.get('/profile',
+      this._ajaxOnly(),
+      (req, res, next) => {
+      return res.render('profile', {user: this._safeJSONParse(req.user)});
     });
 
-    app.get('/login', passport.authenticate('oauth2'));
+    app.get('/login',
+      this._ensureAuthenticated(),
+      (req, res, next) => {
+        return res.redirect('/');
+      }
+    );
 
     passport.serializeUser(this._serializer);
     passport.deserializeUser(this._serializer);
 
+  }
+
+  _ajaxOnly() {
+    return (req, res, next) => {
+      if(req.get('X-Requested-With') !== 'XMLHttpRequest') {
+        return res.redirect('/');
+      }
+      return next();
+    }
+  }
+
+  _safeJSONParse(input) {
+    try {
+      return JSON.parse(input);
+    } catch(e) {
+      return null;
+    }
   }
 
   _serializer(user, done) {
@@ -29,7 +56,7 @@ class Routes {
       if (req.isAuthenticated()) {
         return next();
       }
-      return res.redirect('/login');
+      this.passport.authenticate('oauth2')(req, res, next);
     };
   }
 
@@ -39,13 +66,13 @@ class Routes {
         return next(err);
       }
       if (!user) {
-        return res.redirect('/');
+        return next(user);
       }
       req.login(user, function (err) {
         if (err) {
           return next(err);
         }
-        return res.redirect('/profile');
+        return res.redirect('/');
       });
     })(req, res, next);
   }

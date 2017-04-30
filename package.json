@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Passport.js Oauth2 coding test",
   "scripts": {
-    "start": "nodemon src/index.js --exec babel-node",
+    "start": "nodemon src/app.js --exec babel-node",
     "build": "babel src -d dist",
-    "serve": "node dist/index.js",
+    "serve": "node dist/app.js",
     "test": "mocha --compilers js:babel-register"
   },
   "author": "Zoltan Burgermeiszter <zoltan@burgermeiszter.com>",
@@ -24,7 +24,6 @@
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.2",
-    "moment": "^2.18.1",
     "passport": "^0.3.2",
     "passport-oauth2": "^1.4.0",
     "request": "^2.81.0"
