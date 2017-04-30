@@ -11,13 +11,13 @@ function App() {
 }
 
 App.prototype = {
-  loadProfile(done) {
+  loadProfile: function(done) {
     $.get('/profile', function(content) {
       $('#container').html(content);
       return done();
     });
   },
-  dateFormat(className) {
+  dateFormat: function(className) {
     $(className).dateFormat('MMMM Do YYYY, h:mm:ss a');
   }
 };

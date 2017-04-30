@@ -9,9 +9,9 @@ import bodyParser from 'body-parser';
 
 import handlebars from 'express-handlebars';
 
-import config from '../config';
+import config from './config';
 import Oauth from './modules/oauth';
-import Routes from './routes';
+import Routes from './modules/routes';
 
 const app = express();
 const oauth = new Oauth(config.get('oauth'));
