@@ -4,9 +4,9 @@
   "description": "Passport.js Oauth2 coding test",
   "scripts": {
     "start": "nodemon src/app.js --exec babel-node",
-    "build": "babel src -d dist",
+    "build": "./node_modules/grunt/bin/grunt",
     "serve": "node dist/app.js",
-    "test": "mocha --compilers js:babel-register"
+    "postinstall": "npm run build"
   },
   "author": "Zoltan Burgermeiszter <zoltan@burgermeiszter.com>",
   "license": "ISC",
@@ -14,8 +14,6 @@
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "babel-register": "^6.24.1",
-    "mocha": "^3.3.0",
     "nodemon": "^1.11.0"
   },
   "dependencies": {
